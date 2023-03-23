@@ -1,1 +1,26 @@
 streamlit==1.20.0
+
+## common
+numba==0.56.4
+numpy==1.23.5
+torch==1.13.1
+torchaudio==0.13.1
+transformers==4.27.1
+
+
+## resnetse
+PyYAML==6.0
+webrtcvad==2.0.10
+# soundfile==0.12.1
+scipy==1.10.1
+# numba==0.56.4
+# numpy==1.23.5
+# torch==1.13.1+cu116
+# torchaudio==0.13.1+cu116
+
+
+## 2_Ice_SRC_resnet
+resampy==0.4.2
+soundfile==0.12.1
+scipy==1.10.1
+pandas==1.5.3
