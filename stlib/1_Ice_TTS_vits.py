@@ -11,6 +11,7 @@ def run():
     # cc_cedict.load()
     import torch
     from huggingface_hub import snapshot_download
+    from src.vits.utils.tn_zh import TextNorm
     from src.vits.utils.text import text_to_sequence
     from src import vits
 
@@ -67,35 +68,34 @@ def run():
         else:
             return []
 
+    normalizer = TextNorm()
+
     def tokenizer(text):
         return [tok.text for tok in spacy_zh(text)]
 
-    def convert(text):
-        phonemes = []
-        for tok in spacy_zh(text):
-            if tok.pos_ != 'PUNCT':
-                phonemes.extend([p for w in to_pingyin(tok.text) for p in to_phoneme(w)])
-                phonemes.append('br1')
-            else:
-                _ = phonemes.pop()  # pop last break label
-                if text in ['，', '：', '；']:
-                    phonemes.append('br3')
-                if text in ['。', '？', '！']:
-                    phonemes.append('br4')
-                else:
-                    phonemes.append('br2')
-        phonemes.pop()  # pop last break label
-        phonemes = ['sil'] + phonemes + ['sil']
-        return ' '.join(phonemes)
-
     # def convert(text):
-    #     if text.startswith('#'):
-    #         pinyin = text[1:].split()
-    #     else:
-    #         pinyin = to_pingyin(tokenizer(text))
-    #     phonemes = [p for w in pinyin for p in to_phoneme(w)]
+    #     phonemes = []
+    #     for tok in spacy_zh(text):
+    #         if tok.pos_ != 'PUNCT':
+    #             phonemes.extend([p for w in to_pingyin(tok.text) for p in to_phoneme(w)])
+    #             phonemes.append('br1')
+    #         else:
+    #             _ = phonemes.pop()  # pop last break label
+    #             if text in ['，', '：', '；']:
+    #                 phonemes.append('br3')
+    #             if text in ['。', '？', '！']:
+    #                 phonemes.append('br4')
+    #             else:
+    #                 phonemes.append('br2')
+    #     phonemes.pop()  # pop last break label
     #     phonemes = ['sil'] + phonemes + ['sil']
     #     return ' '.join(phonemes)
+
+    def convert(text):
+        pinyin = to_pingyin(tokenizer(normalizer(text)))
+        phonemes = [p if p!='-' else 'sp' for w in pinyin for p in to_phoneme(w)]
+        phonemes = ['sil'] + phonemes + ['sil']
+        return ' '.join(phonemes)
 
     def preprocess(text):
         text = convert(text)
