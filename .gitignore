@@ -136,10 +136,4 @@ nohup.out
 # Custom
 _Old.*
 checkpoints/*
-asserts/*
-resources/*
-src/*
-stlib/*
-!**/.placeholder
-!**/__init__.py
 run.*
