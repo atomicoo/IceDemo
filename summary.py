@@ -15,7 +15,7 @@ with sidebar:
 
 
 ## Main Area
-st.title("__Sumary__")
+st.title("__Summary__")
 # st.markdown("""
 # > Author: Atom (atomicoo95@gmail.com)  
 # > For more details, please see [source code](https://github.com/atomicoo/IceDemo).  
