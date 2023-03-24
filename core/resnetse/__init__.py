@@ -7,6 +7,7 @@ import numpy as np
 import torch
 
 from . import utils
+from . import models
 
 import logging
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -54,7 +55,7 @@ def trim_long_silences(wave, sampling_rate, bit_depth=16, window_length=30, movi
 class SpeakerNet(torch.nn.Module):
     def __init__(self, model, **kwargs):
         super(SpeakerNet, self).__init__()
-        SpeakerNetModel = importlib.import_module("src.resnetse.models." + model).__getattribute__("MainModel")
+        SpeakerNetModel = importlib.import_module(f"{models.__name__}.{model}").__getattribute__("MainModel")
         self.__S__ = SpeakerNetModel(**kwargs)
 
     def forward(self, data):

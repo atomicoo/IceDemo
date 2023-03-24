@@ -2,7 +2,7 @@ import os
 import numpy as np
 import torch
 from . import utils
-from .models import Synthesizer
+from . import models
 
 
 def insert_blank_token(feat, ctx_group_idx):
@@ -31,7 +31,7 @@ def load_model(checkpoint, device=None):
     else:
         n_vocab = config.data.n_vocab
         linguistic_feature_dim = 0
-    model = Synthesizer(
+    model = models.Synthesizer(
         n_vocab,
         config.data.n_fft // 2 + 1,
         config.train.segment_size // config.data.hop_length,

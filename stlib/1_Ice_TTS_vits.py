@@ -11,9 +11,9 @@ def run():
     # cc_cedict.load()
     import torch
     from huggingface_hub import snapshot_download
-    from src.vits.utils.tn_zh import TextNorm
-    from src.vits.utils.text import text_to_sequence
-    from src import vits
+    from core.vits.utils.tn_zh import TextNorm
+    from core.vits.utils.text import text_to_sequence
+    from core import vits
 
     import sys, os
     import logging

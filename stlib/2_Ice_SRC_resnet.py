@@ -13,7 +13,7 @@ def run():
     import torch
     import pandas as pd
     from huggingface_hub import snapshot_download
-    from src import resnetse
+    from core import resnetse
 
     import sys, os
     import logging
