@@ -1,0 +1,8 @@
+Cython==0.29.33
+protobuf==3.19.6
+PyYAML==6.0
+# soundfile==0.12.1
+numba==0.56.4
+numpy==1.23.5
+# torch==1.13.1+cu116
+# torchaudio==0.13.1+cu116
