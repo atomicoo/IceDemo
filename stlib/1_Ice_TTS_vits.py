@@ -66,33 +66,17 @@ def run():
             item = item.replace('u', 'v')
             return LEXICON[item].split('+')
         else:
-            return []
+            return ['-']
 
     normalizer = TextNorm()
 
     def tokenizer(text):
         return [tok.text for tok in spacy_zh(text)]
 
-    # def convert(text):
-    #     phonemes = []
-    #     for tok in spacy_zh(text):
-    #         if tok.pos_ != 'PUNCT':
-    #             phonemes.extend([p for w in to_pingyin(tok.text) for p in to_phoneme(w)])
-    #             phonemes.append('br1')
-    #         else:
-    #             _ = phonemes.pop()  # pop last break label
-    #             if text in ['，', '：', '；']:
-    #                 phonemes.append('br3')
-    #             if text in ['。', '？', '！']:
-    #                 phonemes.append('br4')
-    #             else:
-    #                 phonemes.append('br2')
-    #     phonemes.pop()  # pop last break label
-    #     phonemes = ['sil'] + phonemes + ['sil']
-    #     return ' '.join(phonemes)
-
     def convert(text):
-        pinyin = to_pingyin(tokenizer(normalizer(text)))
+        text = normalizer(text).strip()
+        tokens = tokenizer(text.replace(' ', '-'))
+        pinyin = to_pingyin(tokens)
         phonemes = [p if p!='-' else 'sp' for w in pinyin for p in to_phoneme(w)]
         phonemes = ['sil'] + phonemes + ['sil']
         return ' '.join(phonemes)
