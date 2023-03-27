@@ -18,6 +18,16 @@ PyYAML==6.0
 # torch==1.13.1+cu116
 # torchaudio==0.13.1+cu116
 
+## stylespeech
+matplotlib==3.5.3
+librosa==0.8.1
+# webrtcvad==2.0.10
+# scipy==1.10.1
+# numba==0.56.4
+# numpy==1.23.5
+# torch==1.13.1+cu116
+# torchaudio==0.13.1+cu116
+
 ## resnetse
 PyYAML==6.0
 webrtcvad==2.0.10
@@ -34,6 +44,14 @@ spacy==3.5.0
 # zh_core_web_sm==3.5.0
 https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.5.0/zh_core_web_sm-3.5.0-py3-none-any.whl
 pypinyin==0.48.0
+
+## 1_Ice_TTS_style
+# spacy==3.5.0
+# zh_core_web_sm==3.5.0
+# https://github.com/explosion/spacy-models/releases/download/zh_core_web_sm-3.5.0/zh_core_web_sm-3.5.0-py3-none-any.whl
+# pypinyin==0.48.0
+# resampy==0.4.2
+# soundfile==0.12.1
 
 ## 2_Ice_SRC_resnet
 resampy==0.4.2
