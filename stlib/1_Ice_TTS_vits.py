@@ -30,7 +30,7 @@ def run():
         cache_dir = snapshot_download(
         repo_id=REPO_ID, 
         allow_patterns=["**/config.yaml", "**/G_latest.pth"], 
-        ignore_patterns=["*spk-vae_v1.ais*"], 
+        ignore_patterns=["*spk-vae_v1.ais*", "*spk-vae_v1.ice*"], 
         revision=REVISION, cache_dir=CACHE_DIR, token=hf_token)
         return cache_dir
 
@@ -196,10 +196,11 @@ def run():
                 logger.info(f"text: {st.session_state.text} | z_u: {z_u} "\
                             f"(version: {st.session_state.version})")
 
-                audio = synthesize(text_input, z_u, lid=None, sid=None, tid=None, 
-                                version=st.session_state.version)
-                st.markdown("general")
-                st.audio(audio, sample_rate=SAMPLE_RATE)
+                for i in range(model.n_styles):
+                    audio = synthesize(text_input, z_u, lid=None, sid=None, tid=i, 
+                                    version=st.session_state.version)
+                    st.markdown(f"sytle {i}")
+                    st.audio(audio, sample_rate=SAMPLE_RATE)
 
     else:
         st.warning("Please input a Chinese text.")  # TODO: 
