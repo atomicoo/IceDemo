@@ -30,7 +30,7 @@ def run():
         cache_dir = snapshot_download(
         repo_id=REPO_ID, 
         allow_patterns=["**/config.yaml", "**/G_latest.pth"], 
-        ignore_patterns=["*spk-vae_v1.ais*", "*spk-vae_v1.ice*"], 
+        ignore_patterns=["*spk-vae_v1.ais*", "*spk-vae_v1.meta*"], 
         revision=REVISION, cache_dir=CACHE_DIR, token=hf_token)
         return cache_dir
 
@@ -109,7 +109,7 @@ def run():
     # CHECKPOINTS = os.path.join('.', 'checkpoints', 'Ice-TTS-vits')
     CHECKPOINTS = hf_download(hf_token=HF_TOKEN)
     MODELS = [m for m in os.listdir(CHECKPOINTS) \
-            if os.path.isdir(os.path.join(CHECKPOINTS, m))]
+              if not m.startswith('.') and os.path.isdir(os.path.join(CHECKPOINTS, m))]
 
     LEXICON = get_lexicon(column=2)
 
@@ -196,7 +196,7 @@ def run():
                 logger.info(f"text: {st.session_state.text} | z_u: {z_u} "\
                             f"(version: {st.session_state.version})")
 
-                for i in range(model.n_styles):
+                for i in range(max(model.n_styles, 1)):
                     audio = synthesize(text_input, z_u, lid=None, sid=None, tid=i, 
                                     version=st.session_state.version)
                     st.markdown(f"sytle {i}")
